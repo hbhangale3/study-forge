@@ -1,13 +1,11 @@
-import os, json
+import os, json, re
 from groq import Groq
 from dotenv import load_dotenv
 load_dotenv()
 
-# Lazy initialization of Groq client
 _client = None
 
 def get_client():
-    """Get or initialize Groq client. Raises error if API key not set."""
     global _client
     if _client is None:
         api_key = os.environ.get("GROQ_API_KEY")
@@ -26,10 +24,18 @@ def get_client():
             ) from error
     return _client
 
+def _strip_json_fences(text):
+    """Strip markdown code fences and extract JSON."""
+    text = text.strip()
+    # Remove ```json ... ``` or ``` ... ``` wrappers
+    text = re.sub(r'^```(?:json)?\s*', '', text)
+    text = re.sub(r'\s*```$', '', text)
+    return text.strip()
+
 def evaluate_answer(card, user_answer):
     """Evaluate user's free-text answer. Returns dict with score 0-5, feedback, missed_points."""
     client = get_client()
-    
+
     prompt = f"""You are a strict but fair technical interviewer evaluating a Java/System Design answer.
 
 Question: {card['question']}
@@ -51,15 +57,20 @@ Scoring: 5=perfect, 4=correct minor gaps, 3=correct missing detail, 2=partial, 1
         messages=[{"role": "user", "content": prompt}],
         max_tokens=300
     )
-    text = response.choices[0].message.content.strip()
-    # Strip markdown code fences if present
-    text = text.replace('```json','').replace('```','').strip()
-    return json.loads(text)
+    text = _strip_json_fences(response.choices[0].message.content)
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        return {
+            "score": 2,
+            "feedback": "Could not parse AI evaluation response. Please try again.",
+            "missed_points": []
+        }
 
 def generate_followup(card):
     """Generate a harder follow-up question based on a card the user got right."""
     client = get_client()
-    
+
     prompt = f"""You are a senior software engineer interviewer.
 
 The student just correctly answered this question:
@@ -72,5 +83,59 @@ Generate ONE harder follow-up question that probes deeper understanding or asks 
         model="llama-3.3-70b-versatile",
         messages=[{"role": "user", "content": prompt}],
         max_tokens=150
+    )
+    return response.choices[0].message.content.strip()
+
+def chat_about_card(card, user_message, history=None, user_answer=None, evaluation=None):
+    """Interactive chat about a flashcard topic. Returns assistant reply string."""
+    client = get_client()
+    if history is None:
+        history = []
+
+    context_parts = [
+        f"Topic: {card.get('subcategory', 'Unknown')}",
+        f"Question: {card['question']}",
+        f"Expected Answer: {card['answer']}",
+    ]
+    if card.get('code'):
+        context_parts.append(f"Code Example:\n{card['code']}")
+    if card.get('hint'):
+        context_parts.append(f"Hint: {card['hint']}")
+    if user_answer:
+        context_parts.append(f"Student's Submitted Answer: {user_answer}")
+    if evaluation:
+        context_parts.append(
+            f"Prior Evaluation: Score {evaluation.get('score')}/5 — {evaluation.get('feedback', '')}"
+        )
+        if evaluation.get('missed_points'):
+            context_parts.append(f"Missed Points: {', '.join(evaluation['missed_points'])}")
+
+    context = '\n'.join(context_parts)
+
+    system_prompt = (
+        "You are a technical interview coach and study tutor. "
+        "Answer based primarily on the flashcard context provided. "
+        "Be concise, practical, and accurate. "
+        "If the question asks for general concept clarification, explain using standard technical knowledge. "
+        "Do not invent project-specific facts not present in the card. "
+        "Keep responses to 3-5 sentences unless a longer explanation is clearly necessary."
+    )
+
+    messages = [
+        {"role": "system", "content": f"{system_prompt}\n\nFlashcard Context:\n{context}"}
+    ]
+    # Include last 6 history turns to keep context manageable
+    for msg in history[-6:]:
+        role = msg.get('role', 'user')
+        content = msg.get('content', '')
+        if role in ('user', 'assistant') and content:
+            messages.append({"role": role, "content": content})
+
+    messages.append({"role": "user", "content": user_message})
+
+    response = client.chat.completions.create(
+        model="llama-3.1-8b-instant",
+        messages=messages,
+        max_tokens=500
     )
     return response.choices[0].message.content.strip()

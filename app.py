@@ -3,7 +3,7 @@ from datetime import date
 import json, os, glob
 from sm2 import (load_progress, save_progress, get_card_progress,
                  update_card, is_due, is_mastered)
-from groq_client import evaluate_answer, generate_followup
+from groq_client import evaluate_answer, generate_followup, chat_about_card
 
 app = Flask(__name__)
 
@@ -183,18 +183,81 @@ def reset_mode(mode):
     """Reset all progress for a given mode."""
     if mode not in CARD_FILES:
         return jsonify({'error': 'Unknown mode'}), 400
-    
+
     cards = load_cards(mode)
     if cards is None:
         return jsonify({'error': 'Failed to load cards'}), 500
-    
+
     progress = load_progress()
     for card in cards:
         if card['id'] in progress:
             del progress[card['id']]
     save_progress(progress)
-    
+
     return jsonify({'reset': True, 'mode': mode})
+
+@app.route('/api/reset-deck', methods=['POST'])
+def reset_deck():
+    """Reset progress for a single deck/mode only."""
+    body = request.json or {}
+    mode = body.get('mode', '').strip()
+
+    if not mode:
+        return jsonify({'error': 'Missing mode parameter'}), 400
+    if mode not in CARD_FILES:
+        return jsonify({'error': f'Unknown mode: {mode}'}), 400
+
+    cards = load_cards(mode)
+    if cards is None:
+        return jsonify({'error': 'Failed to load cards for mode'}), 500
+
+    card_ids = {card['id'] for card in cards}
+
+    try:
+        progress = load_progress()
+    except Exception:
+        progress = {}
+
+    removed = 0
+    for card_id in card_ids:
+        if card_id in progress:
+            del progress[card_id]
+            removed += 1
+
+    save_progress(progress)
+    deck_name = mode_display_name(mode)
+    return jsonify({
+        'success': True,
+        'message': f'Progress reset for {deck_name} deck.',
+        'removed': removed
+    })
+
+@app.route('/api/chat', methods=['POST'])
+def chat():
+    """Interactive AI chat scoped to a flashcard topic."""
+    body = request.json or {}
+    card = body.get('card')
+    user_message = body.get('user_message', '').strip()
+    history = body.get('history', [])
+    user_answer = body.get('user_answer')
+    evaluation = body.get('evaluation')
+
+    if not card:
+        return jsonify({'error': 'Missing card context'}), 400
+    if not user_message:
+        return jsonify({'error': 'Message cannot be empty'}), 400
+
+    try:
+        reply = chat_about_card(
+            card=card,
+            user_message=user_message,
+            history=history,
+            user_answer=user_answer,
+            evaluation=evaluation
+        )
+        return jsonify({'reply': reply})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     print(f"Discovered modes: {', '.join(CARD_FILES.keys())}")

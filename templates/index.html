@@ -625,6 +625,279 @@
             .app-title { font-size: 2rem; }
             .modes-container { grid-template-columns: 1fr; }
         }
+
+        /* ==================== RATING FEEDBACK ==================== */
+        .rating-saved-msg {
+            background: rgba(74, 222, 128, 0.08);
+            border-left: 4px solid #4ade80;
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin-top: 12px;
+            color: #4ade80;
+            font-size: 0.9rem;
+        }
+
+        .rating-error-msg {
+            background: rgba(233, 69, 96, 0.08);
+            border-left: 4px solid #e94560;
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin-top: 12px;
+            color: #e94560;
+            font-size: 0.9rem;
+        }
+
+        /* ==================== RATE BUTTON STATES ==================== */
+        .rate-btn.again.selected  { background: #e94560; color: #eaeaea; }
+        .rate-btn.hard.selected   { background: #fb923c; color: #eaeaea; }
+        .rate-btn.good.selected   { background: #4ade80; color: #1a1a2e; }
+        .rate-btn.easy.selected   { background: #0f3460; color: #eaeaea; border-color: #4ade80; }
+        .rate-btn.dimmed          { opacity: 0.35; }
+        .rate-btn.selected        { transform: scale(1.05); font-weight: 700; }
+
+        /* ==================== EVALUATION BOX ==================== */
+        .eval-box {
+            background: #0f3460;
+            border-radius: 6px;
+            padding: 16px;
+            margin-top: 12px;
+        }
+        .eval-score        { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+        .eval-feedback     { color: #eaeaea; margin-bottom: 8px; line-height: 1.5; }
+        .eval-missed-label { color: #fb923c; font-weight: 600; margin-bottom: 4px; }
+        .eval-missed-list  { color: #b0b0b0; padding-left: 20px; }
+        .eval-missed-list li { margin-bottom: 4px; }
+
+        /* ==================== NAVIGATION CONTROLS ==================== */
+        .nav-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 2px solid #0f3460;
+        }
+
+        .btn-nav {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #0f3460;
+            background: #16213e;
+            color: #eaeaea;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: #0f3460;
+            border-color: #e94560;
+            color: #e94560;
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .btn-next {
+            background: #e94560;
+            border-color: #e94560;
+            color: #eaeaea;
+        }
+
+        .btn-next:hover:not(:disabled) {
+            background: #ff6b7f;
+            border-color: #ff6b7f;
+            color: #eaeaea;
+        }
+
+        .btn-finish {
+            flex: 0.8;
+            background: #16213e;
+            border-color: #fb923c;
+            color: #fb923c;
+        }
+
+        .btn-finish:hover {
+            background: #fb923c;
+            color: #eaeaea;
+        }
+
+        /* ==================== CHAT SECTION ==================== */
+        .chat-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #0f3460;
+        }
+
+        .chat-title {
+            color: #e94560;
+            margin-bottom: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .chat-quick-btns {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .chat-quick-btn {
+            padding: 5px 12px;
+            background: #0f3460;
+            border: 1px solid #e94560;
+            color: #e94560;
+            border-radius: 16px;
+            cursor: pointer;
+            font-size: 0.78rem;
+            transition: all 0.2s ease;
+        }
+
+        .chat-quick-btn:hover {
+            background: #e94560;
+            color: #eaeaea;
+        }
+
+        .chat-history {
+            max-height: 280px;
+            overflow-y: auto;
+            background: #1a1a2e;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #0f3460;
+        }
+
+        .chat-empty {
+            color: #555;
+            font-style: italic;
+            font-size: 0.85rem;
+            text-align: center;
+            padding: 8px 0;
+        }
+
+        .chat-message {
+            margin-bottom: 12px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .chat-message:last-child { margin-bottom: 0; }
+
+        .chat-message.user {
+            background: #0f3460;
+            margin-left: 12%;
+            border-bottom-right-radius: 2px;
+        }
+
+        .chat-message.assistant {
+            background: #16213e;
+            border: 1px solid #0f3460;
+            margin-right: 12%;
+            border-bottom-left-radius: 2px;
+        }
+
+        .chat-role {
+            font-size: 0.72rem;
+            color: #888;
+            margin-bottom: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .chat-content {
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .chat-input-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 10px 12px;
+            background: #1a1a2e;
+            border: 2px solid #0f3460;
+            color: #eaeaea;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .chat-input:focus {
+            border-color: #e94560;
+            outline: none;
+        }
+
+        .btn-send {
+            padding: 10px 20px;
+            background: #e94560;
+            border: none;
+            color: #eaeaea;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .btn-send:hover:not(:disabled) { background: #ff6b7f; }
+
+        .btn-send:disabled,
+        .btn-evaluate:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ==================== DASHBOARD DECK BUTTONS ==================== */
+        .deck-btn-row {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .btn-deck-start {
+            flex: 2;
+            padding: 12px;
+            background: #0f3460;
+            border: none;
+            color: #eaeaea;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-deck-start:hover { background: #e94560; }
+
+        .btn-deck-reset {
+            flex: 1;
+            padding: 12px;
+            background: #1a1a2e;
+            border: 2px solid #e94560;
+            color: #e94560;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-deck-reset:hover {
+            background: #e94560;
+            color: #eaeaea;
+        }
     </style>
 </head>
 <body>
@@ -699,9 +972,56 @@
     </div>
 
     <script>
+        // ==================== UTILITY ====================
+        function esc(text) {
+            if (text == null) return '';
+            const m = {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'};
+            return String(text).replace(/[&<>"']/g, c => m[c]);
+        }
+
+        function formatTime(ms) {
+            const min = Math.floor(ms / 60000);
+            const sec = Math.floor((ms % 60000) / 1000);
+            return min === 0 ? `${sec}s` : `${min}m ${sec}s`;
+        }
+
+        function getModeDisplay(mode) {
+            const m = {'java_core': 'Java Core', 'lld': 'LLD Patterns', 'hld': 'HLD Concepts'};
+            return m[mode] || mode.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+        }
+
+        // ==================== STATE ====================
         const state = {
-            currentMode: null, session: [], currentIndex: 0, sessionResults: [],
-            isFlipped: false, deepMode: false, startTime: null,
+            currentMode: null,
+            session: [],
+            currentIndex: 0,
+            cardStates: {},   // keyed by card.id — persists per-card state within session
+            startTime: null,
+
+            getCardState(cardId) {
+                if (!this.cardStates[cardId]) {
+                    this.cardStates[cardId] = {
+                        rating: null,
+                        answerResponse: null,
+                        userAnswer: '',
+                        evaluation: null,
+                        chat: [],
+                        saved: false,
+                        error: null,
+                        selectedRating: null,
+                        flipped: false,
+                        deepMode: false
+                    };
+                }
+                return this.cardStates[cardId];
+            },
+
+            // Count unique cards that have been rated or evaluated
+            getReviewedCount() {
+                return Object.values(this.cardStates).filter(
+                    cs => cs.selectedRating !== null || cs.evaluation !== null
+                ).length;
+            },
 
             restartSession() { this.startSession(this.currentMode); },
 
@@ -709,8 +1029,7 @@
                 this.currentMode = mode;
                 this.session = [];
                 this.currentIndex = 0;
-                this.sessionResults = [];
-                this.isFlipped = false;
+                this.cardStates = {};
                 this.startTime = Date.now();
 
                 navigateTo('study');
@@ -721,13 +1040,11 @@
                     const resp = await fetch(`/api/session/${mode}`);
                     if (!resp.ok) throw new Error('Failed to load session');
                     this.session = await resp.json();
-
                     if (this.session.length === 0) {
                         alert('No cards due for this mode!');
                         navigateTo('dashboard');
                         return;
                     }
-
                     document.getElementById('totalCards').textContent = this.session.length;
                     this.renderCard();
                 } catch (err) {
@@ -737,44 +1054,109 @@
             },
 
             renderCard() {
-                if (this.currentIndex >= this.session.length) {
-                    this.completeSession();
-                    return;
+                const card = this.session[this.currentIndex];
+                const cs = this.getCardState(card.id);
+                document.getElementById('currentCardNum').textContent = this.currentIndex + 1;
+
+                // Code block
+                const codeHtml = card.code
+                    ? `<div class="card-code"><pre><code>${esc(card.code)}</code></pre></div>`
+                    : '';
+
+                // Rate buttons with selected/dimmed state
+                const ratingDefs = [
+                    {q: 0, cls: 'again', label: '🔴 Again'},
+                    {q: 3, cls: 'hard',  label: '🟠 Hard'},
+                    {q: 4, cls: 'good',  label: '🟢 Good'},
+                    {q: 5, cls: 'easy',  label: '🔵 Easy'}
+                ];
+                const hasSelection = cs.selectedRating !== null;
+                const quickRateHtml = ratingDefs.map(({q, cls, label}) => {
+                    const isSelected = cs.selectedRating === q;
+                    const extra = isSelected ? ' selected' : (hasSelection ? ' dimmed' : '');
+                    return `<button class="rate-btn ${cls}${extra}" onclick="submitRating(${q})">${label}</button>`;
+                }).join('');
+
+                // Saved / error message
+                let savedMsgHtml = '';
+                if (cs.saved && cs.answerResponse) {
+                    savedMsgHtml = `<div class="rating-saved-msg">✓ Rating saved. Next review: ${esc(cs.answerResponse.next_review)}. Use Next → to continue.</div>`;
+                } else if (cs.error) {
+                    savedMsgHtml = `<div class="rating-error-msg">⚠ ${esc(cs.error)}</div>`;
                 }
 
-                const card = this.session[this.currentIndex];
-                document.getElementById('currentCardNum').textContent = this.currentIndex + 1;
+                // Evaluation result
+                const evalHtml = cs.evaluation ? buildEvalHtml(cs.evaluation) : '';
+
+                // Chat history
+                const chatHistoryHtml = buildChatHistoryHtml(cs.chat);
+
+                // "Why wrong?" quick button only if there's a submitted answer
+                const whyWrongBtn = cs.userAnswer
+                    ? `<button class="chat-quick-btn" onclick="sendQuickChat('Why is my answer wrong or incomplete? What key points did I miss?')">Why wrong?</button>`
+                    : '';
+
+                // Answer section visibility
+                const answerVisible = cs.flipped || cs.saved || cs.evaluation !== null;
+                const deepVisible   = cs.deepMode;
+                const flipLabel     = answerVisible ? 'Hide Answer' : 'Show Answer';
 
                 const boxHtml = `
                     <div class="card-question">${esc(card.question)}</div>
-                    ${card.code ? `<div class="card-code"><pre><code>${esc(card.code)}</code></pre></div>` : ''}
-                    <div class="card-hint" id="hintBox">${esc(card.hint || 'No hint')}</div>
+                    ${codeHtml}
+                    <div class="card-hint" id="hintBox">${esc(card.hint || 'No hint available')}</div>
                     <div class="card-controls">
                         <button class="btn btn-hint" onclick="toggleHint()">📌 Hint</button>
-                        <button class="btn btn-flip" onclick="flipCard()">Flip Card</button>
+                        <button class="btn btn-flip" id="flipBtn" onclick="flipCard()">${flipLabel}</button>
                     </div>
-                    <div class="card-answer" id="answerSection">
+
+                    <div class="card-answer${answerVisible ? ' visible' : ''}" id="answerSection">
                         <div class="card-answer-text">${esc(card.answer)}</div>
+
                         <div class="mode-toggle">
-                            <button class="mode-toggle-btn active" onclick="setDeepMode(false)">Quick Rate</button>
-                            <button class="mode-toggle-btn" onclick="setDeepMode(true)">Deep Mode (AI)</button>
+                            <button class="mode-toggle-btn${!deepVisible ? ' active' : ''}" onclick="setDeepMode(false)">Quick Rate</button>
+                            <button class="mode-toggle-btn${deepVisible  ? ' active' : ''}" onclick="setDeepMode(true)">Deep Mode (AI)</button>
                         </div>
-                        <div class="quick-rate" id="quickRate">
-                            <button class="rate-btn again" onclick="submitRating(0)">🔴 Again</button>
-                            <button class="rate-btn hard" onclick="submitRating(3)">🟠 Hard</button>
-                            <button class="rate-btn good" onclick="submitRating(4)">🟢 Good</button>
-                            <button class="rate-btn easy" onclick="submitRating(5)">🔵 Easy</button>
+
+                        <div class="quick-rate" id="quickRate" style="display:${deepVisible ? 'none' : 'grid'}">${quickRateHtml}</div>
+
+                        <div id="savedMsg">${savedMsgHtml}</div>
+
+                        <div class="deep-mode${deepVisible ? ' visible' : ''}" id="deepMode">
+                            <textarea id="userAnswer" placeholder="Type your answer here...">${esc(cs.userAnswer)}</textarea>
+                            <button class="btn-evaluate" id="evalBtn" onclick="evaluateWithAI()">🤖 Evaluate with AI</button>
+                            <div id="evaluationResult">${evalHtml}</div>
+
+                            <div class="chat-section">
+                                <h4 class="chat-title">💬 Discuss with AI Tutor</h4>
+                                <div class="chat-quick-btns">
+                                    <button class="chat-quick-btn" onclick="sendQuickChat('Explain this in simpler terms')">Explain simply</button>
+                                    <button class="chat-quick-btn" onclick="sendQuickChat('Give me a real-world example for this concept')">Give example</button>
+                                    <button class="chat-quick-btn" onclick="sendQuickChat('Ask me a harder follow-up interview question on this topic')">Interview Q</button>
+                                    ${whyWrongBtn}
+                                </div>
+                                <div class="chat-history" id="chatHistory">${chatHistoryHtml}</div>
+                                <div class="chat-input-row">
+                                    <input class="chat-input" id="chatInput" type="text"
+                                        placeholder="Ask a follow-up question..."
+                                        onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChatMessage();}">
+                                    <button class="btn-send" id="sendBtn" onclick="sendChatMessage()">Send</button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="deep-mode" id="deepMode">
-                            <textarea id="userAnswer" placeholder="Type your answer..."></textarea>
-                            <button class="btn-evaluate" onclick="evaluateWithAI()">Evaluate</button>
-                            <div id="evaluationResult"></div>
-                        </div>
+                    </div>
+
+                    <div class="nav-controls">
+                        <button class="btn-nav btn-prev" onclick="state.previousCard()"
+                            ${this.currentIndex === 0 ? 'disabled' : ''}>← Prev</button>
+                        <button class="btn-nav btn-finish" onclick="state.finishSession()">⏹ Finish</button>
+                        <button class="btn-nav btn-next" onclick="state.goToNextCard()">
+                            ${this.currentIndex === this.session.length - 1 ? 'Complete ✓' : 'Next →'}
+                        </button>
                     </div>
                 `;
 
                 document.getElementById('cardBox').innerHTML = boxHtml;
-                this.isFlipped = false;
 
                 if (card.code) {
                     setTimeout(() => {
@@ -782,54 +1164,93 @@
                     }, 0);
                 }
 
+                // Scroll chat to bottom if there are messages
+                if (cs.chat.length > 0) {
+                    const ch = document.getElementById('chatHistory');
+                    if (ch) ch.scrollTop = ch.scrollHeight;
+                }
+
                 updateProgressBar();
             },
 
-            async nextCard() {
-                this.currentIndex++;
+            // Save textarea before navigating away from a card
+            _saveTextarea() {
+                if (!this.session.length) return;
+                const card = this.session[this.currentIndex];
+                const ta = document.getElementById('userAnswer');
+                if (ta) this.getCardState(card.id).userAnswer = ta.value;
+            },
+
+            previousCard() {
+                if (this.currentIndex <= 0) return;
+                this._saveTextarea();
+                this.currentIndex--;
                 this.renderCard();
+            },
+
+            goToNextCard() {
+                this._saveTextarea();
+                if (this.currentIndex >= this.session.length - 1) {
+                    this.completeSession();
+                } else {
+                    this.currentIndex++;
+                    this.renderCard();
+                }
+            },
+
+            finishSession() {
+                this._saveTextarea();
+                this.completeSession();
             },
 
             completeSession() {
                 const stats = this.calculateStats();
-                document.getElementById('completeReviewed').textContent = this.sessionResults.length;
+                document.getElementById('completeReviewed').textContent = stats.reviewed;
                 document.getElementById('completeAverage').textContent = stats.avgQuality.toFixed(1);
                 document.getElementById('completeTime').textContent = formatTime(stats.timeMs);
                 document.getElementById('breakdownAgain').textContent = stats.counts[0];
-                document.getElementById('breakdownHard').textContent = stats.counts[3];
-                document.getElementById('breakdownGood').textContent = stats.counts[4];
-                document.getElementById('breakdownEasy').textContent = stats.counts[5];
+                document.getElementById('breakdownHard').textContent  = stats.counts[3];
+                document.getElementById('breakdownGood').textContent  = stats.counts[4];
+                document.getElementById('breakdownEasy').textContent  = stats.counts[5];
                 navigateTo('complete');
             },
 
             calculateStats() {
-                const results = this.sessionResults;
-                if (results.length === 0) return { avgQuality: 0, timeMs: 0, counts: [0,0,0,0,0,0] };
-                const timeMs = Date.now() - this.startTime;
-                const sum = results.reduce((a, q) => a + q, 0);
+                const ratings = [];
+                Object.values(this.cardStates).forEach(cs => {
+                    if (cs.selectedRating !== null) {
+                        ratings.push(cs.selectedRating);
+                    } else if (cs.evaluation !== null) {
+                        ratings.push(cs.evaluation.score || 0);
+                    }
+                });
+                const timeMs = Date.now() - (this.startTime || Date.now());
+                if (ratings.length === 0) return { reviewed: 0, avgQuality: 0, timeMs, counts: [0,0,0,0,0,0] };
+                const sum = ratings.reduce((a, q) => a + q, 0);
                 const counts = [0,0,0,0,0,0];
-                results.forEach(q => counts[q]++);
-                return { avgQuality: sum / results.length, timeMs, counts };
+                ratings.forEach(q => { counts[Math.min(5, Math.max(0, q))]++; });
+                return { reviewed: ratings.length, avgQuality: sum / ratings.length, timeMs, counts };
             }
         };
 
+        // ==================== PAGE NAVIGATION ====================
         function navigateTo(pageName) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageName).classList.add('active');
-            
             if (pageName === 'dashboard') {
                 document.getElementById('study-nav').style.display = 'none';
                 loadDashboard();
             }
         }
 
+        // ==================== DASHBOARD ====================
         async function loadDashboard() {
             const container = document.getElementById('modesContainer');
             try {
                 const resp = await fetch('/api/stats');
                 const stats = await resp.json();
                 let html = '', total = 0, due = 0, mastered = 0;
-                
+
                 for (const [mode, data] of Object.entries(stats)) {
                     const pct = data.total > 0 ? (data.mastered / data.total) * 100 : 0;
                     html += `<div class="mode-card">
@@ -838,105 +1259,284 @@
                         <div class="mode-card-stat"><span>Due Today</span><span class="mode-card-stat-value">${data.due_today}</span></div>
                         <div class="mode-card-stat"><span>Mastered</span><span class="mode-card-stat-value">${data.mastered}</span></div>
                         <div class="mode-card-stat"><span>Unseen</span><span class="mode-card-stat-value">${data.unseen}</span></div>
-                        <div class="progress-bar"><div class="progress-fill" style="width: ${pct}%"></div></div>
-                        <button class="mode-card-button" onclick="state.startSession('${mode}')">📖 Start</button>
+                        <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+                        <div class="deck-btn-row">
+                            <button class="btn-deck-start" data-mode="${mode}" onclick="state.startSession(this.dataset.mode)">📖 Start</button>
+                            <button class="btn-deck-reset" data-mode="${mode}" onclick="resetDeckProgress(this.dataset.mode)">↺ Reset</button>
+                        </div>
                     </div>`;
-                    total += data.total;
-                    due += data.due_today;
+                    total    += data.total;
+                    due      += data.due_today;
                     mastered += data.mastered;
                 }
                 container.innerHTML = html;
-                document.getElementById('sidebar-total').textContent = total;
-                document.getElementById('sidebar-due').textContent = due;
+                document.getElementById('sidebar-total').textContent    = total;
+                document.getElementById('sidebar-due').textContent      = due;
                 document.getElementById('sidebar-mastered').textContent = mastered;
             } catch (err) {
-                container.innerHTML = `<div class="loading">Error: ${err.message}</div>`;
+                container.innerHTML = `<div class="loading">Error: ${esc(err.message)}</div>`;
             }
         }
 
-        function getModeDisplay(mode) {
-            const m = {'java_core': 'Java Core', 'lld': 'LLD Patterns', 'hld': 'HLD Concepts'};
-            return m[mode] || mode.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-        }
-
-        function toggleHint() { document.getElementById('hintBox').classList.toggle('visible'); }
-        function flipCard() {
-            state.isFlipped = !state.isFlipped;
-            document.getElementById('answerSection').classList.toggle('visible', state.isFlipped);
-        }
-
-        function setDeepMode(deep) {
-            state.deepMode = deep;
-            document.querySelectorAll('.mode-toggle-btn').forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
-            document.getElementById('quickRate').style.display = deep ? 'none' : 'grid';
-            document.getElementById('deepMode').classList.toggle('visible', deep);
-        }
-
-        async function submitRating(quality) {
-            const card = state.session[state.currentIndex];
+        async function resetDeckProgress(mode) {
+            const name = getModeDisplay(mode);
+            if (!confirm(`Reset progress for "${name}"?\n\nThis will clear all review history for this deck only. Other decks are unaffected.\n\nThis cannot be undone.`)) return;
             try {
-                const resp = await fetch('/api/answer', {
+                const resp = await fetch('/api/reset-deck', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({card_id: card.id, quality: quality})
+                    body: JSON.stringify({mode})
                 });
-                if (!resp.ok) throw new Error('Failed to submit');
-                state.sessionResults.push(quality);
-                updateProgressBar();
-                setTimeout(() => state.nextCard(), 1500);
+                const data = await resp.json();
+                if (!resp.ok) throw new Error(data.error || 'Reset failed');
+                alert(`✓ ${data.message}\n${data.removed} card${data.removed !== 1 ? 's' : ''} reset.`);
+                loadDashboard();
             } catch (err) {
                 alert('Error: ' + err.message);
             }
         }
 
-        async function evaluateWithAI() {
-            const ans = document.getElementById('userAnswer').value.trim();
-            if (!ans) { alert('Type your answer first'); return; }
+        // ==================== CARD CONTROLS ====================
+        function toggleHint() {
+            document.getElementById('hintBox').classList.toggle('visible');
+        }
+
+        function flipCard() {
             const card = state.session[state.currentIndex];
-            const resultDiv = document.getElementById('evaluationResult');
-            resultDiv.innerHTML = '<div class="loading"><span class="spinner"></span>Evaluating...</div>';
-            try {
-                const resp = await fetch('/api/evaluate', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({card: card, user_answer: ans})
-                });
-                if (!resp.ok) throw new Error('Evaluation failed');
-                const result = await resp.json();
-                let html = `<p><strong>Score: ${result.score}/5</strong></p><p>${esc(result.feedback)}</p>`;
-                if (result.missed_points && result.missed_points.length > 0) {
-                    html += `<p><strong>Missed:</strong><ul>`;
-                    result.missed_points.forEach(p => { html += `<li>${esc(p)}</li>`; });
-                    html += `</ul></p>`;
-                }
-                resultDiv.innerHTML = html;
-                setTimeout(() => {
-                    state.sessionResults.push(result.score);
-                    updateProgressBar();
-                    setTimeout(() => state.nextCard(), 1500);
-                }, 2000);
-            } catch (err) {
-                resultDiv.innerHTML = `<p style="color:#e94560;">Error: ${err.message}</p>`;
+            const cs   = state.getCardState(card.id);
+            // Toggle flip; saved/evaluated cards always stay visible unless explicitly hidden
+            if (cs.flipped || cs.saved || cs.evaluation !== null) {
+                cs.flipped = false;
+                document.getElementById('answerSection').classList.remove('visible');
+                const btn = document.getElementById('flipBtn');
+                if (btn) btn.textContent = 'Show Answer';
+            } else {
+                cs.flipped = true;
+                document.getElementById('answerSection').classList.add('visible');
+                const btn = document.getElementById('flipBtn');
+                if (btn) btn.textContent = 'Hide Answer';
             }
         }
 
+        function setDeepMode(deep) {
+            const card = state.session[state.currentIndex];
+            const cs   = state.getCardState(card.id);
+            cs.deepMode = deep;
+
+            const btns = document.querySelectorAll('.mode-toggle-btn');
+            btns.forEach((b, i) => b.classList.toggle('active', i === (deep ? 1 : 0)));
+
+            document.getElementById('quickRate').style.display = deep ? 'none' : 'grid';
+            document.getElementById('deepMode').classList.toggle('visible', deep);
+
+            if (deep) {
+                cs.flipped = true;
+                document.getElementById('answerSection').classList.add('visible');
+                const btn = document.getElementById('flipBtn');
+                if (btn) btn.textContent = 'Hide Answer';
+            }
+        }
+
+        // ==================== RATING ====================
+        async function submitRating(quality) {
+            const card = state.session[state.currentIndex];
+            const cs   = state.getCardState(card.id);
+
+            // Immediately update button visual state
+            const allBtns = document.querySelectorAll('.quick-rate .rate-btn');
+            const qMap = [0, 3, 4, 5];
+            allBtns.forEach((btn, i) => {
+                btn.classList.remove('selected', 'dimmed');
+                if (qMap[i] === quality) btn.classList.add('selected');
+                else                     btn.classList.add('dimmed');
+            });
+
+            const savedMsg = document.getElementById('savedMsg');
+            savedMsg.innerHTML = `<div class="rating-saved-msg" style="opacity:0.6"><span class="spinner"></span> Saving...</div>`;
+
+            // Make sure answer section is visible
+            cs.flipped = true;
+            document.getElementById('answerSection').classList.add('visible');
+            const flipBtn = document.getElementById('flipBtn');
+            if (flipBtn) flipBtn.textContent = 'Hide Answer';
+
+            try {
+                const resp = await fetch('/api/answer', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({card_id: card.id, quality})
+                });
+                if (!resp.ok) throw new Error('Failed to submit rating');
+                const data = await resp.json();
+
+                cs.selectedRating = quality;
+                cs.answerResponse = data;
+                cs.saved          = true;
+                cs.error          = null;
+
+                savedMsg.innerHTML = `<div class="rating-saved-msg">✓ Rating saved. Next review: ${esc(data.next_review)}. Use Next → to continue.</div>`;
+                updateProgressBar();
+            } catch (err) {
+                cs.error = 'Failed to save rating: ' + err.message;
+                savedMsg.innerHTML = `<div class="rating-error-msg">⚠ ${esc(cs.error)}</div>`;
+            }
+        }
+
+        // ==================== EVALUATION ====================
+        function buildEvalHtml(ev) {
+            if (!ev) return '';
+            const scoreColor = ev.score >= 4 ? '#4ade80' : ev.score >= 2 ? '#fb923c' : '#e94560';
+            let html = `<div class="eval-box">
+                <p class="eval-score" style="color:${scoreColor}">Score: ${ev.score}/5</p>
+                <p class="eval-feedback">${esc(ev.feedback || '')}</p>`;
+            if (ev.missed_points && ev.missed_points.length > 0) {
+                html += `<p class="eval-missed-label">Missed points:</p><ul class="eval-missed-list">`;
+                ev.missed_points.forEach(p => { html += `<li>${esc(p)}</li>`; });
+                html += `</ul>`;
+            }
+            html += `</div>`;
+            return html;
+        }
+
+        async function evaluateWithAI() {
+            const answerEl = document.getElementById('userAnswer');
+            const ans = answerEl ? answerEl.value.trim() : '';
+            if (!ans) { alert('Type your answer first'); return; }
+
+            const card = state.session[state.currentIndex];
+            const cs   = state.getCardState(card.id);
+            cs.userAnswer = ans;
+
+            const resultDiv = document.getElementById('evaluationResult');
+            const evalBtn   = document.getElementById('evalBtn');
+            const savedMsg  = document.getElementById('savedMsg');
+
+            evalBtn.disabled    = true;
+            evalBtn.textContent = '⏳ Evaluating...';
+            resultDiv.innerHTML = '<div class="loading"><span class="spinner"></span> AI is evaluating your answer...</div>';
+
+            try {
+                // Step 1: get evaluation
+                const evalResp = await fetch('/api/evaluate', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({card, user_answer: ans})
+                });
+                if (!evalResp.ok) throw new Error('Evaluation request failed');
+                const result = await evalResp.json();
+                if (result.error) throw new Error(result.error);
+
+                cs.evaluation = result;
+                resultDiv.innerHTML = buildEvalHtml(result);
+
+                // Step 2: save score to progress
+                const answerResp = await fetch('/api/answer', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({card_id: card.id, quality: result.score})
+                });
+                if (!answerResp.ok) throw new Error('Failed to save score');
+                const answerData = await answerResp.json();
+
+                cs.selectedRating = result.score;
+                cs.answerResponse = answerData;
+                cs.saved          = true;
+                cs.error          = null;
+
+                savedMsg.innerHTML = `<div class="rating-saved-msg">✓ Score ${result.score}/5 saved. Next review: ${esc(answerData.next_review)}. Use Next → to continue.</div>`;
+                updateProgressBar();
+
+            } catch (err) {
+                cs.error = err.message;
+                resultDiv.innerHTML = `<div class="rating-error-msg">⚠ Evaluation failed: ${esc(err.message)}</div>`;
+            } finally {
+                evalBtn.disabled    = false;
+                evalBtn.textContent = '🤖 Evaluate with AI';
+            }
+        }
+
+        // ==================== CHAT ====================
+        function buildChatHistoryHtml(chat) {
+            if (!chat || chat.length === 0) {
+                return '<div class="chat-empty">No messages yet. Ask a question below.</div>';
+            }
+            return chat.map(msg => {
+                const cls   = msg.role === 'user' ? 'user' : 'assistant';
+                const label = msg.role === 'user' ? 'You' : '🤖 AI Tutor';
+                return `<div class="chat-message ${cls}">
+                    <div class="chat-role">${label}</div>
+                    <div class="chat-content">${esc(msg.content)}</div>
+                </div>`;
+            }).join('');
+        }
+
+        function sendQuickChat(text) {
+            const input = document.getElementById('chatInput');
+            if (input) {
+                input.value = text;
+                sendChatMessage();
+            }
+        }
+
+        async function sendChatMessage() {
+            const input   = document.getElementById('chatInput');
+            const sendBtn = document.getElementById('sendBtn');
+            if (!input || !sendBtn) return;
+
+            const message = input.value.trim();
+            if (!message) return;
+
+            const card = state.session[state.currentIndex];
+            const cs   = state.getCardState(card.id);
+
+            // Append user message to state immediately
+            cs.chat.push({role: 'user', content: message});
+            input.value = '';
+
+            sendBtn.disabled    = true;
+            sendBtn.textContent = '...';
+
+            // Optimistically render user message
+            const historyEl = document.getElementById('chatHistory');
+            if (historyEl) {
+                historyEl.innerHTML = buildChatHistoryHtml(cs.chat);
+                historyEl.scrollTop = historyEl.scrollHeight;
+            }
+
+            try {
+                const resp = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        card,
+                        user_message: message,
+                        history: cs.chat.slice(0, -1),   // history without the just-pushed message
+                        user_answer: cs.userAnswer || null,
+                        evaluation:  cs.evaluation || null
+                    })
+                });
+                const data = await resp.json();
+                if (!resp.ok) throw new Error(data.error || 'Chat request failed');
+
+                cs.chat.push({role: 'assistant', content: data.reply});
+            } catch (err) {
+                cs.chat.push({role: 'assistant', content: `⚠ Error: ${esc(err.message)}`});
+            } finally {
+                if (historyEl) {
+                    historyEl.innerHTML = buildChatHistoryHtml(cs.chat);
+                    historyEl.scrollTop = historyEl.scrollHeight;
+                }
+                sendBtn.disabled    = false;
+                sendBtn.textContent = 'Send';
+            }
+        }
+
+        // ==================== PROGRESS BAR ====================
         function updateProgressBar() {
-            const total = state.session.length;
-            const completed = state.currentIndex;
-            const pct = total > 0 ? (completed / total) * 100 : 0;
+            const total    = state.session.length;
+            const reviewed = state.getReviewedCount();
+            const pct      = total > 0 ? (reviewed / total) * 100 : 0;
             document.getElementById('sessionProgressFill').style.width = pct + '%';
-        }
-
-        function formatTime(ms) {
-            const min = Math.floor(ms / 60000);
-            const sec = Math.floor((ms % 60000) / 1000);
-            return min === 0 ? `${sec}s` : `${min}m ${sec}s`;
-        }
-
-        function esc(text) {
-            const m = {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'};
-            return text.replace(/[&<>"']/g, c => m[c]);
         }
 
         document.addEventListener('DOMContentLoaded', loadDashboard);
