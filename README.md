@@ -5,6 +5,7 @@ A professional Flask-based spaced repetition system for mastering **system desig
 ## Quick Start
 
 ### Prerequisites
+
 - Python 3.8+
 - pip or conda
 
@@ -26,6 +27,8 @@ venv\Scripts\activate
 # Install dependencies
 pip install -r requirements.txt
 ```
+
+> Note: `requirements.txt` pins a compatible Groq dependency stack, including `httpx==0.27.0` for `groq==0.9.0`.
 
 ### Configuration (Optional)
 
@@ -52,6 +55,7 @@ source venv/bin/activate && python app.py
 ```
 
 **Output:**
+
 ```
 Discovered modes: hld, lld, java_core
  * Running on http://127.0.0.1:3000
@@ -63,11 +67,13 @@ Visit **http://localhost:3000** in your browser.
 ### Stop the Server
 
 **Option 1: Interactive (if running in foreground)**
+
 ```bash
 # Press Ctrl+C in the terminal
 ```
 
 **Option 2: Kill by port**
+
 ```bash
 # macOS/Linux:
 lsof -i :3000 | grep -v COMMAND | awk '{print $2}' | xargs kill -9
@@ -77,6 +83,7 @@ pkill -f "python app.py"
 ```
 
 **Option 3: Kill specific process ID**
+
 ```bash
 kill -9 <PID>
 ```
@@ -99,6 +106,7 @@ source venv/bin/activate && python app.py
 ## Features
 
 ### ✨ Core Functionality
+
 - **Spaced Repetition (SM-2 Algorithm)** - Scientifically-optimized review intervals
 - **Dark-Themed Professional UI** - Modern sidebar navigation with real-time stats
 - **Multi-page Application** - Dashboard, Study Session, and Completion pages
@@ -113,9 +121,11 @@ source venv/bin/activate && python app.py
 ### 🎯 Study Modes
 
 #### 1. **High-Level Design (HLD)** — 60 Cards
+
 System design fundamentals and advanced patterns
 
 **Chunk 1 — Fundamentals (15 cards)**
+
 - Performance vs Scalability, Vertical vs Horizontal Scaling
 - Load Balancing (algorithms, L4 vs L7), DNS & CDN
 - CAP Theorem, Consistency Models (Strong/Eventual/Weak), Availability nines
@@ -126,6 +136,7 @@ System design fundamentals and advanced patterns
 - Message Queues (Kafka vs RabbitMQ)
 
 **Chunk 2 — Advanced (10 cards)**
+
 - Microservices vs Monolith, SAGA pattern
 - Consistent Hashing (virtual nodes, why modulo fails)
 - API Gateway vs Load Balancer
@@ -135,6 +146,7 @@ System design fundamentals and advanced patterns
 - Back-of-envelope estimation (latency, storage, QPS)
 
 **Chunk 3 — Real-World Systems (35 cards)**
+
 - Instagram (upload, likes, media storage)
 - YouTube (transcoding, streaming, recommendations)
 - Uber (geospatial matching, trip tracking, payments, surge pricing)
@@ -150,9 +162,11 @@ System design fundamentals and advanced patterns
 - CDN estimation (full worked examples)
 
 #### 2. **Low-Level Design (LLD)** — 25 Cards
+
 Object-oriented design patterns and SOLID principles
 
 **Chunk 1 — SOLID + Object Relationships (10 cards)**
+
 - Is-a vs Has-a relationships
 - Aggregation vs Composition with lifecycle examples
 - All 5 SOLID principles:
@@ -164,11 +178,13 @@ Object-oriented design patterns and SOLID principles
 - Interface vs Abstract Class decision guide
 
 **Chunk 2 — Behavioral Patterns (6 cards)**
+
 - Strategy Pattern (5 real-world scenarios, identification)
 - Observer Pattern (4 components, YouTube flow, Push vs Pull)
 - Decorator Pattern (Pizza example, class explosion problem)
 
 **Chunk 3 — Creational + Structural Patterns (9 cards)**
+
 - Factory Pattern, Abstract Factory Pattern
 - Singleton Pattern (early vs lazy loading, double-checked locking)
 - Adapter Pattern (RazorPay integration example)
@@ -178,9 +194,11 @@ Object-oriented design patterns and SOLID principles
 - Pattern identification guide with interview approach
 
 #### 3. **Java Core** — 63 Cards
+
 Fundamental Java concepts, threading, and backend patterns
 
 **Fundamentals (27 cards)**
+
 - Classes, Objects, Memory Model (Stack vs Heap)
 - Constructors (default, parameterized, copy), `this` keyword, `new` keyword
 - Access modifiers (public, private, protected, package-private)
@@ -194,6 +212,7 @@ Fundamental Java concepts, threading, and backend patterns
 - String immutability + string pool
 
 **Threading (23 cards)**
+
 - Program vs Process vs Thread, Context Switching
 - Concurrency vs Parallelism, Process vs Thread comparison
 - ULT vs KLT vs LWP (JVM threading model)
@@ -211,6 +230,7 @@ Fundamental Java concepts, threading, and backend patterns
 - Mutex vs Lock vs Monitor distinctions
 
 **Advanced (13 cards)**
+
 - Exception Handling (checked vs unchecked)
 - Try-catch-finally rules, stack unwinding
 - throw vs throws, custom exceptions
@@ -251,16 +271,16 @@ study-forge/
 
 ## API Endpoints
 
-| Method | Endpoint | Purpose |
-|--------|----------|---------|
-| `GET` | `/` | Serve main UI |
-| `GET` | `/api/modes` | List all available study modes |
-| `GET` | `/api/stats` | Get statistics (total, due, mastered, unseen) per mode |
-| `GET` | `/api/session/<mode>` | Start study session (load due cards) |
-| `POST` | `/api/answer` | Submit rating (0-5) for a card |
-| `POST` | `/api/evaluate` | AI evaluation of user answer (requires API key) |
-| `GET` | `/api/followup/<card_id>` | Generate follow-up question (AI, requires API key) |
-| `POST` | `/api/reset/<mode>` | Reset progress for a study mode |
+| Method | Endpoint                  | Purpose                                                |
+| ------ | ------------------------- | ------------------------------------------------------ |
+| `GET`  | `/`                       | Serve main UI                                          |
+| `GET`  | `/api/modes`              | List all available study modes                         |
+| `GET`  | `/api/stats`              | Get statistics (total, due, mastered, unseen) per mode |
+| `GET`  | `/api/session/<mode>`     | Start study session (load due cards)                   |
+| `POST` | `/api/answer`             | Submit rating (0-5) for a card                         |
+| `POST` | `/api/evaluate`           | AI evaluation of user answer (requires API key)        |
+| `GET`  | `/api/followup/<card_id>` | Generate follow-up question (AI, requires API key)     |
+| `POST` | `/api/reset/<mode>`       | Reset progress for a study mode                        |
 
 ---
 
@@ -290,6 +310,7 @@ Cards are stored as JSON with the following structure:
 ### Adding New Cards
 
 **Method 1: Extend existing files**
+
 ```bash
 # Edit data/cards_hld.json, data/cards_lld.json, or data/cards_java_core.json
 # Add more objects to the "cards" array
@@ -297,6 +318,7 @@ Cards are stored as JSON with the following structure:
 ```
 
 **Method 2: Create new mode file**
+
 ```bash
 # Create data/cards_your_topic.json with same structure
 # Restart the app — auto-discovered as "your_topic" mode
@@ -309,12 +331,14 @@ Cards are stored as JSON with the following structure:
 ### SM-2 Spaced Repetition Algorithm
 
 Each card tracks:
+
 - **Ease Factor** (1.3–∞, starts at 2.5) — affects interval growth
 - **Interval** (1→6→exponential) — days until next review
 - **Repetitions** — number of times reviewed
 - **Next Review** — calculated date for this card
 
 **Quality Scale (0-5):**
+
 - **0**: Completely wrong / Blank
 - **1**: Incorrect, some understanding
 - **2**: Partially correct
@@ -323,11 +347,13 @@ Each card tracks:
 - **5**: Perfect answer
 
 **Mastery Criteria:**
+
 - Ease Factor ≥ 2.5 AND Interval ≥ 21 days AND Repetitions ≥ 3
 
 ### Card Discovery
 
 On startup, the app scans `data/` for `cards_*.json` files:
+
 ```bash
 Discovered modes: hld, lld, java_core
 ```
@@ -337,6 +363,7 @@ Each file is automatically unwrapped from `{"cards": [...]}` format (if needed) 
 ### Progress Tracking
 
 Study progress is saved to `progress.json`:
+
 ```json
 {
   "hld_001": {
@@ -390,6 +417,7 @@ kill -9 <PID>
 ### AI Evaluation Returns Error
 
 The app works offline without an API key. To enable AI:
+
 1. Get free Groq API key from https://console.groq.com
 2. Set `GROQ_API_KEY=...` in `.env`
 3. Restart the app
@@ -397,6 +425,7 @@ The app works offline without an API key. To enable AI:
 ### Progress Not Saving
 
 Ensure `progress.json` has write permissions:
+
 ```bash
 chmod 644 progress.json
 ```
@@ -421,6 +450,7 @@ Open-source study material. Use freely for educational purposes.
 ## Contributing
 
 To add new cards or topics:
+
 1. Create `data/cards_my_topic.json`
 2. Follow the card format above
 3. Restart the app
@@ -431,6 +461,7 @@ To add new cards or topics:
 ## Summary
 
 **StudyForge** is a comprehensive spaced repetition system covering:
+
 - **System Design** (HLD): 60 cards on architecture, scalability, real-world systems
 - **Design Patterns** (LLD): 25 cards on SOLID, OOP patterns, refactoring
 - **Java Core**: 63 cards on fundamentals, threading, backend concepts

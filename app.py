@@ -197,6 +197,6 @@ def reset_mode(mode):
     return jsonify({'reset': True, 'mode': mode})
 
 if __name__ == '__main__':
-    # Print discovered modes on startup
     print(f"Discovered modes: {', '.join(CARD_FILES.keys())}")
-    app.run(debug=True, port=3000)
+    port = int(os.environ.get("PORT", 3000))
+    app.run(host="0.0.0.0", port=port, debug=False)

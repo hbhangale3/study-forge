@@ -30,7 +30,9 @@ __pycache__/
 .env.*.local
 
 # Application Data
+# Application Data
 progress.json
+data/progress.json
 *.db
 *.sqlite3
 

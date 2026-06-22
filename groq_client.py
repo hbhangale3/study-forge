@@ -16,7 +16,14 @@ def get_client():
                 "GROQ_API_KEY not set. Deep Mode (AI evaluation) requires a valid API key. "
                 "Get one at https://console.groq.com and set it in .env file."
             )
-        _client = Groq(api_key=api_key)
+        try:
+            _client = Groq(api_key=api_key)
+        except TypeError as error:
+            raise RuntimeError(
+                "Failed to initialize Groq client. This often happens when the installed "
+                "httpx version is incompatible with groq==0.9.0. Install `httpx==0.27.0` "
+                "and retry."
+            ) from error
     return _client
 
 def evaluate_answer(card, user_answer):
@@ -40,7 +47,7 @@ Evaluate and return ONLY valid JSON with no extra text:
 Scoring: 5=perfect, 4=correct minor gaps, 3=correct missing detail, 2=partial, 1=shows some understanding, 0=wrong/blank"""
 
     response = client.chat.completions.create(
-        model="llama-3-8b-8192",
+        model="llama-3.3-70b-versatile",
         messages=[{"role": "user", "content": prompt}],
         max_tokens=300
     )
@@ -62,7 +69,7 @@ Question: {card['question']}
 Generate ONE harder follow-up question that probes deeper understanding or asks about edge cases, tradeoffs, or real-world application. Return ONLY the question text, nothing else."""
 
     response = client.chat.completions.create(
-        model="llama-3-8b-8192",
+        model="llama-3.3-70b-versatile",
         messages=[{"role": "user", "content": prompt}],
         max_tokens=150
     )
