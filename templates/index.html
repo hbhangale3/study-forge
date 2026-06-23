@@ -618,12 +618,217 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* ==================== MOBILE HEADER ==================== */
+        .mobile-header {
+            display: none;
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 150;
+        }
+
+        .sidebar-overlay.visible {
+            display: block;
+        }
+
+        /* ==================== RESPONSIVE: <= 768px ==================== */
         @media (max-width: 768px) {
-            body { flex-direction: column; }
-            .sidebar { width: 100%; border-right: none; border-bottom: 2px solid #0f3460; }
-            .main-content { padding: 20px; }
+            body {
+                flex-direction: column;
+                height: auto;
+                min-height: 100vh;
+                overflow-x: hidden;
+            }
+
+            /* Mobile sticky top bar */
+            .mobile-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 12px 16px;
+                background: #16213e;
+                border-bottom: 2px solid #0f3460;
+                position: sticky;
+                top: 0;
+                z-index: 100;
+                flex-shrink: 0;
+            }
+
+            .mobile-logo {
+                font-size: 1.15rem;
+                font-weight: 900;
+                color: #e94560;
+            }
+
+            .hamburger-btn {
+                background: none;
+                border: 1px solid #0f3460;
+                color: #eaeaea;
+                font-size: 1.3rem;
+                padding: 5px 12px;
+                border-radius: 4px;
+                cursor: pointer;
+                line-height: 1;
+                transition: border-color 0.2s;
+            }
+
+            .hamburger-btn:hover {
+                border-color: #e94560;
+                color: #e94560;
+            }
+
+            /* Sidebar becomes a fixed slide-in drawer */
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: -300px;
+                width: 260px;
+                height: 100%;
+                z-index: 200;
+                transition: left 0.28s ease;
+                border-right: 2px solid #0f3460;
+                border-bottom: none;
+            }
+
+            .sidebar.open {
+                left: 0;
+            }
+
+            /* Main content fills full width */
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+                padding: 16px 12px;
+                overflow-x: hidden;
+            }
+
+            /* Dashboard */
             .app-title { font-size: 2rem; }
-            .modes-container { grid-template-columns: 1fr; }
+
+            .modes-container {
+                grid-template-columns: 1fr;
+            }
+
+            /* Deck buttons stack on narrow phones */
+            .deck-btn-row {
+                flex-wrap: wrap;
+            }
+
+            /* Study header wraps */
+            .study-header {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .study-info {
+                gap: 12px;
+                flex-wrap: wrap;
+            }
+
+            /* Card container: no fixed height */
+            .card-container {
+                min-height: auto;
+                align-items: flex-start;
+            }
+
+            .card-box {
+                padding: 20px 16px;
+            }
+
+            /* Rating buttons: 2-column grid */
+            .quick-rate {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            /* Nav control buttons wrap */
+            .nav-controls {
+                flex-wrap: wrap;
+            }
+
+            .btn-finish {
+                flex: 1 1 100%;
+                order: 3;
+            }
+
+            /* Code blocks scroll horizontally, never break layout */
+            .card-code {
+                max-width: 100%;
+                overflow-x: auto;
+            }
+
+            pre, code {
+                max-width: 100%;
+                white-space: pre;
+                overflow-x: auto;
+                word-break: normal;
+            }
+
+            /* Session complete breakdown: 2-column */
+            .complete-breakdown {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .complete-buttons {
+                flex-direction: column;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            /* Chat indentation reduced */
+            .chat-message.user      { margin-left: 4%; }
+            .chat-message.assistant { margin-right: 4%; }
+
+            /* Textarea & chat input: always full width */
+            .deep-mode textarea,
+            .chat-input {
+                width: 100%;
+            }
+        }
+
+        /* ==================== RESPONSIVE: <= 480px ==================== */
+        @media (max-width: 480px) {
+            .app-title { font-size: 1.6rem; }
+
+            .dashboard-header { margin-bottom: 28px; }
+
+            .card-question { font-size: 1.15rem; }
+
+            .mode-card { padding: 16px 14px; }
+
+            .card-box { padding: 14px 12px; }
+
+            .complete-header { font-size: 2rem; }
+
+            .complete-summary { padding: 24px 16px; }
+
+            /* Touch-friendly button height */
+            .btn,
+            .btn-nav,
+            .rate-btn,
+            .btn-deck-start,
+            .btn-deck-reset,
+            .mode-card-button,
+            .btn-primary,
+            .btn-secondary {
+                min-height: 44px;
+            }
+
+            /* Deck action buttons: full width stack */
+            .deck-btn-row {
+                flex-direction: column;
+            }
+
+            .btn-deck-start,
+            .btn-deck-reset {
+                flex: 1 1 auto;
+            }
+
+            /* Nav controls: Prev / Next full row, Finish below */
+            .btn-nav { font-size: 0.85rem; }
         }
 
         /* ==================== RATING FEEDBACK ==================== */
@@ -901,7 +1106,16 @@
     </style>
 </head>
 <body>
-    <div class="sidebar">
+    <!-- Mobile top bar (hidden on desktop) -->
+    <header class="mobile-header" id="mobileHeader">
+        <div class="mobile-logo">🧠 StudyForge</div>
+        <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleSidebar()" aria-label="Open menu">☰</button>
+    </header>
+
+    <!-- Overlay that dims the page when sidebar drawer is open -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <div class="sidebar-logo">🧠</div>
             <div class="sidebar-title">StudyForge</div>
@@ -1233,6 +1447,19 @@
             }
         };
 
+        // ==================== MOBILE SIDEBAR DRAWER ====================
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            const isOpen  = sidebar.classList.toggle('open');
+            overlay.classList.toggle('visible', isOpen);
+        }
+
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('sidebarOverlay').classList.remove('visible');
+        }
+
         // ==================== PAGE NAVIGATION ====================
         function navigateTo(pageName) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -1241,6 +1468,8 @@
                 document.getElementById('study-nav').style.display = 'none';
                 loadDashboard();
             }
+            closeSidebar();  // always close mobile drawer on any navigation
+            window.scrollTo(0, 0);
         }
 
         // ==================== DASHBOARD ====================
