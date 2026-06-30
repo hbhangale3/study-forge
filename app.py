@@ -70,7 +70,7 @@ def get_modes():
 
 @app.route('/api/session/<mode>')
 def get_session(mode):
-    """Get due cards for a study session (max 20)."""
+    """Get all due cards for a study session."""
     if mode not in CARD_FILES:
         return jsonify({'error': 'Unknown mode'}), 400
     
@@ -91,7 +91,7 @@ def get_session(mode):
     # Sort: new cards first (repetitions==0), then overdue oldest first
     due.sort(key=lambda c: (c['progress']['repetitions'] > 0,
                              c['progress']['next_review']))
-    return jsonify(due[:20])  # cap at 20 per session
+    return jsonify(due)
 
 @app.route('/api/answer', methods=['POST'])
 def submit_answer():
